@@ -50,7 +50,9 @@ if(document.querySelector('.modal-dialog')) {
     fayuan = document.getElementsByClassName('form-group margin-t-1x')[0].querySelector("div").innerText.match(/.*?法院/)[0]
 
      // 案由
-    if(dialog.match(/侵犯了.*?权/)) {
+     if(dialog.match(/的.*?权/)) {
+        anyou = dialog.match(/的.*?权/)[0].replace('的','');
+    } else if(dialog.match(/侵犯了.*?权/)) {
         anyou = dialog.match(/侵犯了.*?权/)[0].replace('侵犯了','');
     } else if(dialog.match(/侵害了.*?权/)) {
         anyou = dialog.match(/侵害了.*?权/)[0].replace('侵害了','');
