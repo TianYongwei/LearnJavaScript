@@ -30,17 +30,16 @@ if(document.querySelector('.modal-dialog')) {
     var dialog_body = document.querySelector('.modal-dialog .modal-body').innerText;
 
     // 文书类型
-    type = document.getElementsByClassName('form-group margin-t-1x')[0].querySelector("div:nth-child(3)").innerText;
-    if(!type) {
-        if(dialog.match(/民 事 判 决 书/)) {
-            type = '民 事 判 决 书'
-        } else if(dialog.match(/民 事 裁 定 书/)) {
-            type = '民 事 裁 定 书'
-        } else if(dialog.match(/执 行 裁 定 书/)) {
-            type = '执 行 裁 定 书'
-        } else if(dialog.match(/民 事 调 解 书/)) {
-            type = '民 事 调 解 书'
-        }
+    // type = document.getElementsByClassName('form-group margin-t-1x')[0].querySelector("div:nth-child(3)").innerText;
+
+    if(dialog.match(/民 事 判 决 书/)) {
+        type = '民 事 判 决 书'
+    } else if(dialog.match(/民 事 裁 定 书/)) {
+        type = '民 事 裁 定 书'
+    } else if(dialog.match(/执 行 裁 定 书/)) {
+        type = '执 行 裁 定 书'
+    } else if(dialog.match(/民 事 调 解 书/)) {
+        type = '民 事 调 解 书'
     }
     console.log("/*=============================================*/")
     console.log('/*===========文书类型：'+type+'==============*/')
@@ -78,18 +77,18 @@ if(document.querySelector('.modal-dialog')) {
      }
 
      // 案号
-    if(document.getElementsByClassName('form-group margin-t-1x')[0].querySelector("div:nth-child(4)")) {
-        number = document.getElementsByClassName('form-group margin-t-1x')[0].querySelector("div:nth-child(4)").innerText;
-    } else {
-        number = error;
-    }
-    //  if(dialog.match(/初.*号/)) {
-    //     number = dialog_body.match(/^（.*初.*号/)[0]
-    //  } else if(dialog.match(/终.*号/)) {
-    //     number = dialog_body.match(/（.*终.*号/)[0]
-    //  } else {
+    // if(document.getElementsByClassName('form-group margin-t-1x')[0].querySelector("div:nth-child(4)")) {
+    //     number = document.getElementsByClassName('form-group margin-t-1x')[0].querySelector("div:nth-child(4)").innerText;
+    // } else {
     //     number = error;
-    //  }
+    // }
+     if(dialog_body.match(/.*?（.*?初.*?号/)) {
+        number = dialog_body.match(/.*?（.*?初.*?号/)[0]
+     } else if(dialog_body.match(/.*?（.*?终.*?号/)) {
+        number = dialog_body.match(/.*?（.*?终.*?号/)[0]
+     } else {
+        number = error;
+     }
      
      // 文书类别
      var shen = ''
@@ -192,10 +191,10 @@ if(document.querySelector('.modal-dialog')) {
      }
 
      // 审判长
-     if(dialog_body.match(/审 判 长/)) {
-         var name = dialog_body.match(/审 判 长.*/)[0];
-         name = name.replace('审 判 长', '');
-         name = name.replace('　　','')
+     if(dialog_body.match(/审.*?判.*?长/)) {
+         var name = dialog_body.match(/审.*?判.*?长.*/)[0];
+         name = name.replace(/审.*?判.*?长/, '');
+        //  name = name.replace('　　','')
          if(name.match(/代理/)) {
              name = name.replace('代理','')
          }
@@ -210,12 +209,12 @@ if(document.querySelector('.modal-dialog')) {
          shenpanzhang = name
      }
      // 审判员
-     if(dialog_body.match(/审 判 员/)) {
-         var names = dialog_body.match(/审 判 员.*/g);
+     if(dialog_body.match(/审.*?判.*?员/)) {
+         var names = dialog_body.match(/审.*?判.*?员.*/g);
          var multiName = ''
          names.forEach(name => {
-             name = name.replace('审 判 员', '');
-             name = name.replace('　　','')
+             name = name.replace('审.*?判.*?员', '');
+            //  name = name.replace('　　','')
              if(name.match(/代理/)) {
                  name = name.replace('代理','')
              }
