@@ -108,7 +108,7 @@ if(document.querySelector('.modal-dialog')) {
      } else if(shen == '二审' && dialog.match(/被上诉人（原审原告）北京鸟人艺术推广有限责任公司/)) {
         // 1
         shenfen = '二审被上诉人（原审原告）'
-        beigao = dialog.match(/上诉人（原审被告）.*?，/)[0].replace('被上诉人（原审被告）','').replace('，','')
+        beigao = dialog.match(/上诉人（原审被告）.*?，/)[0].replace('上诉人（原审被告）','').replace('，','')
         beigaoLocation = dialog.match(/上诉人（原审被告）.*?。/)[0].match(/住所地.*?。/)[0].replace('住所地','').replace('。','')
      } else if(shen == '二审' && dialog.match(/被上诉人（原审被告）北京鸟人艺术推广有限责任公司/)) {
         // 2
