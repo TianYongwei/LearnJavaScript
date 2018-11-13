@@ -82,10 +82,10 @@ if(document.querySelector('.modal-dialog')) {
     // } else {
     //     number = error;
     // }
-     if(dialog_body.match(/.*?（.*?初.*?号/)) {
-        number = dialog_body.match(/.*?（.*?初.*?号/)[0]
-     } else if(dialog_body.match(/.*?（.*?终.*?号/)) {
-        number = dialog_body.match(/.*?（.*?终.*?号/)[0]
+     if(dialog_body.match(/（.*?初.*?号/)) {
+        number = dialog_body.match(/（.*?初.*?号/)[0]
+     } else if(dialog_body.match(/（.*?终.*?号/)) {
+        number = dialog_body.match(/（.*?终.*?号/)[0]
      } else {
         number = error;
      }
@@ -112,13 +112,22 @@ if(document.querySelector('.modal-dialog')) {
      // 涉案身份
      if(shen == '一审' && dialog.match(/原告北京鸟人艺术推广有限责任公司/)) {
         shenfen = '一审原告'
-        beigao = dialog.match(/被告.*?，/)[0].replace('被告','').replace('，','')
+        if(dialog.match(/被告.*?住所/)) {
+            beigao = dialog.match(/被告.*?，/)[0].replace('被告','').replace('，','')
+        } else {
+            beigao = dialog.match(/被告.*?。/)[0].replace('被告','').replace('。','')
+        }
         if(dialog.match(/被告.*?。/)[0].match(/住所地.*?。/)) {
             beigaoLocation = dialog.match(/被告.*?。/)[0].match(/住所地.*?。/)[0].replace('住所地','').replace('。','')
         }
      } else if(shen == '一审' && dialog.match(/被告北京鸟人艺术推广有限责任公司/)) {
         shenfen = '一审被告'
-        beigao = dialog.match(/原告.*?，/)[0].replace('原告','').replace('，','')
+        if(dialog.match(/原告.*?住所/)) {
+            beigao = dialog.match(/原告.*?，/)[0].replace('原告','').replace('，','')
+        } else {
+            beigao = dialog.match(/原告.*?。/)[0].replace('原告','').replace('。','')
+        }
+        
         if(dialog.match(/原告.*?。/)[0].match(/住所地.*?。/)) {
             beigaoLocation = dialog.match(/原告.*?。/)[0].match(/住所地.*?。/)[0].replace('住所地','').replace('。','')
         }
