@@ -72,14 +72,19 @@ if(document.querySelector('.modal-dialog')) {
          content = error;
      }
 
-     // 案号
-     if(document.querySelector('.modal-dialog').innerText.match(/初.*号/)) {
-        number = document.querySelector('.modal-dialog .modal-body').innerText.match(/（.*初.*号/)[0]
-     } else if(document.querySelector('.modal-dialog').innerText.match(/终.*号/)) {
-        number = document.querySelector('.modal-dialog .modal-body').innerText.match(/（.*终.*号/)[0]
-     } else {
+    // 案号
+    if(document.getElementsByClassName('form-group margin-t-1x')[0].querySelector("div:nth-child(4)")) {
+        number = document.getElementsByClassName('form-group margin-t-1x')[0].querySelector("div:nth-child(4)").innerText;
+    } else {
         number = error;
-     }
+    }
+    //  if(document.querySelector('.modal-dialog').innerText.match(/初.*号/)) {
+    //     number = document.querySelector('.modal-dialog .modal-body').innerText.match(/^（.*初.*号/)[0]
+    //  } else if(document.querySelector('.modal-dialog').innerText.match(/终.*号/)) {
+    //     number = document.querySelector('.modal-dialog .modal-body').innerText.match(/（.*终.*号/)[0]
+    //  } else {
+    //     number = error;
+    //  }
      
      // 涉案身份
      if(document.querySelector('.modal-dialog').innerText.match(/初.*号/) && document.querySelector('.modal-dialog').innerText.match(/原告北京鸟人艺术推广有限责任公司/)) {
@@ -103,6 +108,13 @@ if(document.querySelector('.modal-dialog')) {
      } else if(document.querySelector('.modal-dialog').innerText.match(/终.*号/) && document.querySelector('.modal-dialog').innerText.match(/被告北京鸟人艺术推广有限责任公司/)) {
         //  "涉案身份：" + "二审被告"
         shenfen = '二审被告'
+     } else if(document.querySelector('.modal-dialog').innerText.match(/终.*号/) && document.querySelector('.modal-dialog').innerText.match(/上诉人（原审原告）北京鸟人艺术推广有限责任公司/)) {
+        //  "涉案身份：" + "二审上诉人"
+        shenfen = '二审上诉人（原审原告）'
+        // "被告：" + document.querySelector('.modal-dialog').innerText.match(/被告.*，/)[0].replace('被告','').replace('，','')
+        // "被告：" + document.querySelector('.modal-dialog').innerText.match(/被告.*。/)[0].match(/住所地.*。/)[0].replace('住所地','').replace('。','')
+        beigao = document.querySelector('.modal-dialog').innerText.match(/被上诉人（原审被告）.*?，/)[0].replace('被上诉人（原审被告）','').replace('，','')
+        beigaoLocation = document.querySelector('.modal-dialog').innerText.match(/被上诉人（原审被告）.*?。/)[0].match(/住所地.*?。/)[0].replace('住所地','').replace('。','')
      } else {
         shenfen = error
         beigao = error
