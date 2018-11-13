@@ -52,12 +52,26 @@ if(document.querySelector('.modal-dialog')) {
      } else {
         anyou = error
      }
+
+     // 案号
+    if(document.getElementsByClassName('form-group margin-t-1x')[0].querySelector("div:nth-child(4)")) {
+        number = document.getElementsByClassName('form-group margin-t-1x')[0].querySelector("div:nth-child(4)").innerText;
+    } else {
+        number = error;
+    }
+    //  if(document.querySelector('.modal-dialog').innerText.match(/初.*号/)) {
+    //     number = document.querySelector('.modal-dialog .modal-body').innerText.match(/^（.*初.*号/)[0]
+    //  } else if(document.querySelector('.modal-dialog').innerText.match(/终.*号/)) {
+    //     number = document.querySelector('.modal-dialog .modal-body').innerText.match(/（.*终.*号/)[0]
+    //  } else {
+    //     number = error;
+    //  }
      
      // 文书类别
      var shen = ''
-     if(document.querySelector('.modal-dialog').innerText.match(/初.*号/)) {
+     if(number != error && number.match(/初.*号/)) {
         shen = '一审'
-     } else if(document.querySelector('.modal-dialog').innerText.match(/终.*号/)) {
+     } else if(number != error && number.match(/终.*号/)) {
         shen = '二审'
      } else {
          shen = '??'
@@ -72,22 +86,9 @@ if(document.querySelector('.modal-dialog')) {
          content = error;
      }
 
-    // 案号
-    if(document.getElementsByClassName('form-group margin-t-1x')[0].querySelector("div:nth-child(4)")) {
-        number = document.getElementsByClassName('form-group margin-t-1x')[0].querySelector("div:nth-child(4)").innerText;
-    } else {
-        number = error;
-    }
-    //  if(document.querySelector('.modal-dialog').innerText.match(/初.*号/)) {
-    //     number = document.querySelector('.modal-dialog .modal-body').innerText.match(/^（.*初.*号/)[0]
-    //  } else if(document.querySelector('.modal-dialog').innerText.match(/终.*号/)) {
-    //     number = document.querySelector('.modal-dialog .modal-body').innerText.match(/（.*终.*号/)[0]
-    //  } else {
-    //     number = error;
-    //  }
      
      // 涉案身份
-     if(document.querySelector('.modal-dialog').innerText.match(/初.*号/) && document.querySelector('.modal-dialog').innerText.match(/原告北京鸟人艺术推广有限责任公司/)) {
+     if(shen == '一审' && document.querySelector('.modal-dialog').innerText.match(/原告北京鸟人艺术推广有限责任公司/)) {
         //  "涉案身份：" + "一审原告"
         shenfen = '一审原告'
 
@@ -95,20 +96,27 @@ if(document.querySelector('.modal-dialog')) {
         //  "被告：" + document.querySelector('.modal-dialog').innerText.match(/被告.*。/)[0].match(/住所地.*。/)[0].replace('住所地','').replace('。','')
         beigao = document.querySelector('.modal-dialog').innerText.match(/被告.*?，/)[0].replace('被告','').replace('，','')
         beigaoLocation = document.querySelector('.modal-dialog').innerText.match(/被告.*?。/)[0].match(/住所地.*?。/)[0].replace('住所地','').replace('。','')
-     } else if(document.querySelector('.modal-dialog').innerText.match(/初.*号/) && document.querySelector('.modal-dialog').innerText.match(/被告北京鸟人艺术推广有限责任公司/)) {
+     } else if(shen == '一审' && document.querySelector('.modal-dialog').innerText.match(/被告北京鸟人艺术推广有限责任公司/)) {
         //  "涉案身份：" + "一审被告"
         shenfen = '一审被告'
-     } else if(document.querySelector('.modal-dialog').innerText.match(/终.*号/) && document.querySelector('.modal-dialog').innerText.match(/原告北京鸟人艺术推广有限责任公司/)) {
+     } else if(shen == '二审' && document.querySelector('.modal-dialog').innerText.match(/原告北京鸟人艺术推广有限责任公司/)) {
         //  "涉案身份：" + "二审原告"
         shenfen = '二审原告'
         // "被告：" + document.querySelector('.modal-dialog').innerText.match(/被告.*，/)[0].replace('被告','').replace('，','')
         // "被告：" + document.querySelector('.modal-dialog').innerText.match(/被告.*。/)[0].match(/住所地.*。/)[0].replace('住所地','').replace('。','')
         beigao = document.querySelector('.modal-dialog').innerText.match(/被告.*?，/)[0].replace('被告','').replace('，','')
         beigaoLocation = document.querySelector('.modal-dialog').innerText.match(/被告.*?。/)[0].match(/住所地.*?。/)[0].replace('住所地','').replace('。','')
-     } else if(document.querySelector('.modal-dialog').innerText.match(/终.*号/) && document.querySelector('.modal-dialog').innerText.match(/被告北京鸟人艺术推广有限责任公司/)) {
+     } else if(shen == '二审'  && document.querySelector('.modal-dialog').innerText.match(/被告北京鸟人艺术推广有限责任公司/)) {
         //  "涉案身份：" + "二审被告"
         shenfen = '二审被告'
-     } else if(document.querySelector('.modal-dialog').innerText.match(/终.*号/) && document.querySelector('.modal-dialog').innerText.match(/上诉人（原审原告）北京鸟人艺术推广有限责任公司/)) {
+     } else if(shen == '二审' && document.querySelector('.modal-dialog').innerText.match(/被上诉人（原审原告）北京鸟人艺术推广有限责任公司/)) {
+        //  "涉案身份：" + "二审上诉人"
+        shenfen = '二审被上诉人（原审被告）'
+        // "被告：" + document.querySelector('.modal-dialog').innerText.match(/被告.*，/)[0].replace('被告','').replace('，','')
+        // "被告：" + document.querySelector('.modal-dialog').innerText.match(/被告.*。/)[0].match(/住所地.*。/)[0].replace('住所地','').replace('。','')
+        // beigao = document.querySelector('.modal-dialog').innerText.match(/被上诉人（原审被告）.*?，/)[0].replace('被上诉人（原审被告）','').replace('，','')
+        // beigaoLocation = document.querySelector('.modal-dialog').innerText.match(/被上诉人（原审被告）.*?。/)[0].match(/住所地.*?。/)[0].replace('住所地','').replace('。','')
+     } else if(shen == '二审' && document.querySelector('.modal-dialog').innerText.match(/上诉人（原审原告）北京鸟人艺术推广有限责任公司/)) {
         //  "涉案身份：" + "二审上诉人"
         shenfen = '二审上诉人（原审原告）'
         // "被告：" + document.querySelector('.modal-dialog').innerText.match(/被告.*，/)[0].replace('被告','').replace('，','')
@@ -206,18 +214,19 @@ if(document.querySelector('.modal-dialog')) {
          shenpanyuan = error
      }
      // 判决时间
-     if(document.querySelector('.modal-dialog .modal-body').innerText.match(/二.*年.*日/)) {
-        //  console.log("判决时间：" + document.querySelector('.modal-dialog .modal-body').innerText.match(/二O.*/)[0])
-        time = document.querySelector('.modal-dialog .modal-body').innerText.match(/二.*年.*日/)[0]
+     if(document.querySelector('.modal-dialog .modal-body').innerText.match(/二Ｏ.{3}年.*?日/)) {
+        time = document.querySelector('.modal-dialog .modal-body').innerText.match(/二Ｏ.{3}年.*?日/)[0]
+     } else if(document.querySelector('.modal-dialog .modal-body').innerText.match(/二.{3}年.*?日/)) {
+        time = document.querySelector('.modal-dialog .modal-body').innerText.match(/二.{3}年.*?日/)[0]
      } else {
-        //  console.log("判决时间：" + "未能匹配，请手动获取！")
         time = error
      }
 
      // 判决年度
-     if(document.querySelector('.modal-dialog .modal-body').innerText.match(/二.*年/)) {
-        //  console.log("判决年度：" + document.querySelector('.modal-dialog .modal-body').innerText.match(/二O.*年/)[0])
-        year = document.querySelector('.modal-dialog .modal-body').innerText.match(/二.*年/)[0]
+     if(document.querySelector('.modal-dialog .modal-body').innerText.match(/二Ｏ.{3}年/)) {
+        year = document.querySelector('.modal-dialog .modal-body').innerText.match(/二Ｏ.{3}年/)[0]
+     } else if(document.querySelector('.modal-dialog .modal-body').innerText.match(/二.{3}年/)) {
+        year = document.querySelector('.modal-dialog .modal-body').innerText.match(/二.{3}年/)[0]
      } else {
         //  console.log("判决年度：" + "未能匹配，请手动获取！")
         year = error
@@ -247,7 +256,7 @@ if(document.querySelector('.modal-dialog')) {
     console.log("判决时间：" + time)
     console.log("判决年度：" + year)
     console.log("链接：" + link)
-    console.log("内容：" + content)
+    console.log("内容：" + content + "\n\n\n\n")
 
     // console.log("案由,标题,文书类别,内容,案号,涉案身份,被告,被告所在地,省份,判决款项,赔偿金额,是否和解,审判长,审判员,判决时间,判决年度,链接")
     console.log("案由,标题,文书类别,案号,涉案身份,被告,被告所在地,省份,判决款项,赔偿金额,是否和解,审判长,审判员,判决时间,判决年度\n" + anyou + ',' 
