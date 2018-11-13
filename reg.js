@@ -50,8 +50,15 @@ if(document.querySelector('.modal-dialog')) {
     fayuan = document.getElementsByClassName('form-group margin-t-1x')[0].querySelector("div").innerText.match(/.*?法院/)[0]
 
      // 案由
-    if(dialog.match(/侵犯.*权/)) {
-        anyou = dialog.match(/侵犯.*权/)[0].replace('侵犯','');
+    if(dialog.match(/侵犯了.*?权/)) {
+        anyou = dialog.match(/侵犯了.*?权/)[0].replace('侵犯了','');
+    } else if(dialog.match(/侵害了.*?权/)) {
+        anyou = dialog.match(/侵害了.*?权/)[0].replace('侵害了','');
+    } else if(dialog.match(/侵犯.*?权/)) {
+        anyou = dialog.match(/侵犯.*?权/)[0].replace('侵犯','');
+        // console.log("案由：" + anyou)
+    } else if(dialog.match(/侵害.*?权/)) {
+        anyou = dialog.match(/侵害.*?权/)[0].replace('侵害','');
         // console.log("案由：" + anyou)
     } else if(dialog.match(/.{2}权/)) {
         anyou = dialog.match(/.{2}权/)[0];
@@ -268,11 +275,7 @@ if(document.querySelector('.modal-dialog')) {
     console.log("链接：" + link + "\n\n\n")
     // console.log("内容：" + content + "\n\n\n\n")
 
-    console.error('拷贝下面的内容👇👇👇👇👇👇👇👇👇👇👇')
-    console.error('拷贝下面的内容👇👇👇👇👇👇👇👇👇👇👇')
-    console.error('拷贝下面的内容👇👇👇👇👇👇👇👇👇👇👇')
-    console.error('拷贝下面的内容👇👇👇👇👇👇👇👇👇👇👇')
-    console.error('拷贝下面的内容👇👇👇👇👇👇👇👇👇👇👇')
+    console.error('↓↓↓↓↓↓↓↓↓↓↓↓↓↓拷贝下面的内容↓↓↓↓↓↓↓↓↓↓↓')
     // console.log("案由,标题,文书类别,内容,案号,涉案身份,被告,被告所在地,省份,判决款项,赔偿金额,是否和解,审判长,审判员,判决时间,判决年度,链接")
     console.log("案由,标题,文书类别,案号,涉案身份,被告,被告所在地,省份,判决款项,赔偿金额,是否和解,法院,审判长,审判员,判决时间,判决年度,正文\n\n\n\n" + anyou + ',' 
         + title + ',' 
