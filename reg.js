@@ -23,6 +23,7 @@ if(document.querySelector('.modal-dialog')) {
     var time = error;
     var year = error;
     var link = error;
+    var fayuan = error;
 
 
     var dialog = document.querySelector('.modal-dialog').innerText;
@@ -30,9 +31,23 @@ if(document.querySelector('.modal-dialog')) {
 
     // 文书类型
     type = document.getElementsByClassName('form-group margin-t-1x')[0].querySelector("div:nth-child(3)").innerText;
+    if(!type) {
+        if(dialog.match(/民 事 判 决 书/)) {
+            type = '民 事 判 决 书'
+        } else if(dialog.match(/民 事 裁 定 书/)) {
+            type = '民 事 裁 定 书'
+        } else if(dialog.match(/执 行 裁 定 书/)) {
+            type = '执 行 裁 定 书'
+        } else if(dialog.match(/民 事 调 解 书/)) {
+            type = '民 事 调 解 书'
+        }
+    }
     console.log("/*=============================================*/")
     console.log('/*===========文书类型：'+type+'==============*/')
     console.log("/*=============================================*/\n\n\n")
+
+    // 法院
+    fayuan = document.getElementsByClassName('form-group margin-t-1x')[0].querySelector("div").innerText.match(/.*?法院/)[0]
 
      // 案由
     if(dialog.match(/侵犯.*权/)) {
@@ -81,7 +96,8 @@ if(document.querySelector('.modal-dialog')) {
      // 内容
      if(dialog_body) {
          content = dialog_body
-         content.replace(/，/g,'')
+         content = content.replace(/，/g, '')
+         content = content.replace(/\n/g, '')
      }
 
      
@@ -258,7 +274,7 @@ if(document.querySelector('.modal-dialog')) {
     console.error('拷贝下面的内容👇👇👇👇👇👇👇👇👇👇👇')
     console.error('拷贝下面的内容👇👇👇👇👇👇👇👇👇👇👇')
     // console.log("案由,标题,文书类别,内容,案号,涉案身份,被告,被告所在地,省份,判决款项,赔偿金额,是否和解,审判长,审判员,判决时间,判决年度,链接")
-    console.log("案由,标题,文书类别,案号,涉案身份,被告,被告所在地,省份,判决款项,赔偿金额,是否和解,审判长,审判员,判决时间,判决年度,正文\n\n\n\n" + anyou + ',' 
+    console.log("案由,标题,文书类别,案号,涉案身份,被告,被告所在地,省份,判决款项,赔偿金额,是否和解,法院,审判长,审判员,判决时间,判决年度,正文\n\n\n\n" + anyou + ',' 
         + title + ',' 
         + type + ',' 
         + number + ',' 
@@ -269,6 +285,7 @@ if(document.querySelector('.modal-dialog')) {
         + bank + ',' 
         + money + ',' 
         + hejie + ',' 
+        + fayuan + ',' 
         + shenpanzhang + ',' 
         + shenpanyuan + ',' 
         + time + ',' 
