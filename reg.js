@@ -4,27 +4,26 @@ if(document.querySelector('.modal-dialog')) {
     /**
      * 变量声明
      */
-    var dialog = '';
     
-    var anyou = '';
-    var title = '';
-    var type = '';
-    var content = '';
-    var number = '';
-    var shenfen = '';
-    var beigao = '';
-    var beigaoLocation = '';
-    var province = '';
-    var bank = '';
-    var money = '';
-    var hejie = '';
-    var shenpanzhang = '';
-    var shenpanyuan = '';
-    var time = '';
-    var year = '';
-    var link = '';
-
     var error = '无法匹配';
+    var anyou = error;
+    var title = error;
+    var type = error;
+    var content = error;
+    var number = error;
+    var shenfen = error;
+    var beigao = error;
+    var beigaoLocation = error;
+    var province = error;
+    var bank = error;
+    var money = error;
+    var hejie = error;
+    var shenpanzhang = error;
+    var shenpanyuan = error;
+    var time = error;
+    var year = error;
+    var link = error;
+
 
     var dialog = document.querySelector('.modal-dialog').innerText;
     var dialog_body = document.querySelector('.modal-dialog .modal-body').innerText;
@@ -83,8 +82,6 @@ if(document.querySelector('.modal-dialog')) {
      if(dialog_body) {
          content = dialog_body
          content.replace(/，/g,'')
-     } else {
-         content = error;
      }
 
      
@@ -92,43 +89,55 @@ if(document.querySelector('.modal-dialog')) {
      if(shen == '一审' && dialog.match(/原告北京鸟人艺术推广有限责任公司/)) {
         shenfen = '一审原告'
         beigao = dialog.match(/被告.*?，/)[0].replace('被告','').replace('，','')
-        beigaoLocation = dialog.match(/被告.*?。/)[0].match(/住所地.*?。/)[0].replace('住所地','').replace('。','')
+        if(dialog.match(/被告.*?。/)[0].match(/住所地.*?。/)) {
+            beigaoLocation = dialog.match(/被告.*?。/)[0].match(/住所地.*?。/)[0].replace('住所地','').replace('。','')
+        }
      } else if(shen == '一审' && dialog.match(/被告北京鸟人艺术推广有限责任公司/)) {
         shenfen = '一审被告'
         beigao = dialog.match(/原告.*?，/)[0].replace('原告','').replace('，','')
-        beigaoLocation = dialog.match(/原告.*?。/)[0].match(/住所地.*?。/)[0].replace('住所地','').replace('。','')
+        if(dialog.match(/原告.*?。/)[0].match(/住所地.*?。/)) {
+            beigaoLocation = dialog.match(/原告.*?。/)[0].match(/住所地.*?。/)[0].replace('住所地','').replace('。','')
+        }
      } else if(shen == '二审' && dialog.match(/原告北京鸟人艺术推广有限责任公司/)) {
         shenfen = '二审原告'
         beigao = dialog.match(/被告.*?，/)[0].replace('被告','').replace('，','')
-        beigaoLocation = dialog.match(/被告.*?。/)[0].match(/住所地.*?。/)[0].replace('住所地','').replace('。','')
+        if(dialog.match(/被告.*?。/)[0].match(/住所地.*?。/)) {
+            beigaoLocation = dialog.match(/被告.*?。/)[0].match(/住所地.*?。/)[0].replace('住所地','').replace('。','')
+        }
      } else if(shen == '二审'  && dialog.match(/被告北京鸟人艺术推广有限责任公司/)) {
         shenfen = '二审被告'
         beigao = dialog.match(/原告.*?，/)[0].replace('原告','').replace('，','')
-        beigaoLocation = dialog.match(/原告.*?。/)[0].match(/住所地.*?。/)[0].replace('住所地','').replace('。','')
+        if(dialog.match(/原告.*?。/)[0].match(/住所地.*?。/)) {
+            beigaoLocation = dialog.match(/原告.*?。/)[0].match(/住所地.*?。/)[0].replace('住所地','').replace('。','')
+        }
      } else if(shen == '二审' && dialog.match(/被上诉人（原审原告）北京鸟人艺术推广有限责任公司/)) {
         // 1
         shenfen = '二审被上诉人（原审原告）'
         beigao = dialog.match(/上诉人（原审被告）.*?，/)[0].replace('上诉人（原审被告）','').replace('，','')
-        beigaoLocation = dialog.match(/上诉人（原审被告）.*?。/)[0].match(/住所地.*?。/)[0].replace('住所地','').replace('。','')
+        if(dialog.match(/上诉人（原审被告）.*?。/)[0].match(/住所地.*?。/)) {
+            beigaoLocation = dialog.match(/上诉人（原审被告）.*?。/)[0].match(/住所地.*?。/)[0].replace('住所地','').replace('。','')
+        }
      } else if(shen == '二审' && dialog.match(/被上诉人（原审被告）北京鸟人艺术推广有限责任公司/)) {
         // 2
         shenfen = '二审被上诉人（原审被告）'
         beigao = dialog.match(/上诉人（原审原告）.*?，/)[0].replace('上诉人（原审原告）','').replace('，','')
-        beigaoLocation = dialog.match(/上诉人（原审原告）.*?。/)[0].match(/住所地.*?。/)[0].replace('住所地','').replace('。','')
+        if(dialog.match(/上诉人（原审原告）.*?。/)[0].match(/住所地.*?。/)) {
+            beigaoLocation = dialog.match(/上诉人（原审原告）.*?。/)[0].match(/住所地.*?。/)[0].replace('住所地','').replace('。','')
+        }
      } else if(shen == '二审' && dialog.match(/上诉人（原审原告）北京鸟人艺术推广有限责任公司/)) {
         // 3
         shenfen = '二审上诉人（原审原告）'
         beigao = dialog.match(/被上诉人（原审被告）.*?，/)[0].replace('被上诉人（原审被告）','').replace('，','')
-        beigaoLocation = dialog.match(/被上诉人（原审被告）.*?。/)[0].match(/住所地.*?。/)[0].replace('住所地','').replace('。','')
+        if(dialog.match(/被上诉人（原审被告）.*?。/)[0].match(/住所地.*?。/)) {
+            beigaoLocation = dialog.match(/被上诉人（原审被告）.*?。/)[0].match(/住所地.*?。/)[0].replace('住所地','').replace('。','')
+        }
      } else if(shen == '二审' && dialog.match(/上诉人（原审原告）北京鸟人艺术推广有限责任公司/)) {
         // 4
         shenfen = '二审上诉人（原审被告）'
         beigao = dialog.match(/被上诉人（原审原告）.*?，/)[0].replace('被上诉人（原审原告）','').replace('，','')
-        beigaoLocation = dialog.match(/被上诉人（原审原告）.*?。/)[0].match(/住所地.*?。/)[0].replace('住所地','').replace('。','')
-     } else {
-        shenfen = error
-        beigao = error
-        beigaoLocation = error
+        if(dialog.match(/被上诉人（原审原告）.*?。/)[0].match(/住所地.*?。/)) {
+            beigaoLocation = dialog.match(/被上诉人（原审原告）.*?。/)[0].match(/住所地.*?。/)[0].replace('住所地','').replace('。','')
+        }
      }
 
      // 省份
@@ -136,15 +145,11 @@ if(document.querySelector('.modal-dialog')) {
         province = dialog.match(/.*法院/)[0].match(/.*市/)[0]
      } else if(dialog.match(/.*法院/)[0].match(/.*省/)) {
         province = dialog.match(/.*法院/)[0].match(/.*省/)[0]
-     } else {
-        province = error
      }
 
      // 判决款项开户信息
      if(dialog.match(/开户行.*/)) {
          bank = dialog.match(/开户行.*/)[0]
-     } else {
-         bank = error
      }
 
      // 赔偿金额
@@ -152,8 +157,6 @@ if(document.querySelector('.modal-dialog')) {
         money = dialog.match(/共计\d*元/)[0].replace('共计','')
      } else if(dialog.match(/人民币\d*元/)) {
         money = dialog.match(/人民币\d*元/)[0].replace('人民币','')
-     } else {
-        money = error
      }
 
      // 是否和解
@@ -161,8 +164,6 @@ if(document.querySelector('.modal-dialog')) {
       || dialog_body.match(/撤诉/)
       || dialog_body.match(/和解/)) {
         hejie = "是"
-     } else {
-        hejie = "否"
      }
 
      // 审判长
@@ -182,8 +183,6 @@ if(document.querySelector('.modal-dialog')) {
              name = name.replace('代理','')
          }
          shenpanzhang = name
-     } else {
-         shenpanzhang = error
      }
      // 审判员
      if(dialog_body.match(/审 判 员/)) {
@@ -212,16 +211,12 @@ if(document.querySelector('.modal-dialog')) {
            //  console.log("审判员：" + name)
         });
         shenpanyuan = multiName
-    } else {
-         shenpanyuan = error
-     }
+    }
      // 判决时间
      if(dialog_body.match(/二Ｏ.{3}年.*?日/)) {
         time = dialog_body.match(/二Ｏ.{3}年.*?日/)[0]
      } else if(dialog_body.match(/二.{3}年.*?日/)) {
         time = dialog_body.match(/二.{3}年.*?日/)[0]
-     } else {
-        time = error
      }
 
      // 判决年度
@@ -229,9 +224,6 @@ if(document.querySelector('.modal-dialog')) {
         year = dialog_body.match(/二Ｏ.{3}年/)[0]
      } else if(dialog_body.match(/二.{3}年/)) {
         year = dialog_body.match(/二.{3}年/)[0]
-     } else {
-        //  console.log("判决年度：" + "未能匹配，请手动获取！")
-        year = error
      }
 
      // 启信宝链接（按页）
@@ -257,14 +249,18 @@ if(document.querySelector('.modal-dialog')) {
     console.log("审判员：" + shenpanyuan)
     console.log("判决时间：" + time)
     console.log("判决年度：" + year)
-    console.log("链接：" + link)
-    console.log("内容：" + content + "\n\n\n\n")
+    console.log("链接：" + link + "\n\n\n")
+    // console.log("内容：" + content + "\n\n\n\n")
 
+    console.error('拷贝下面的内容👇👇👇👇👇👇👇👇👇👇👇')
+    console.error('拷贝下面的内容👇👇👇👇👇👇👇👇👇👇👇')
+    console.error('拷贝下面的内容👇👇👇👇👇👇👇👇👇👇👇')
+    console.error('拷贝下面的内容👇👇👇👇👇👇👇👇👇👇👇')
+    console.error('拷贝下面的内容👇👇👇👇👇👇👇👇👇👇👇')
     // console.log("案由,标题,文书类别,内容,案号,涉案身份,被告,被告所在地,省份,判决款项,赔偿金额,是否和解,审判长,审判员,判决时间,判决年度,链接")
-    console.log("案由,标题,文书类别,案号,涉案身份,被告,被告所在地,省份,判决款项,赔偿金额,是否和解,审判长,审判员,判决时间,判决年度\n" + anyou + ',' 
+    console.log("案由,标题,文书类别,案号,涉案身份,被告,被告所在地,省份,判决款项,赔偿金额,是否和解,审判长,审判员,判决时间,判决年度,正文\n\n\n\n" + anyou + ',' 
         + title + ',' 
         + type + ',' 
-        // + content + ',' 
         + number + ',' 
         + shenfen + ',' 
         + beigao + ',' 
@@ -276,7 +272,8 @@ if(document.querySelector('.modal-dialog')) {
         + shenpanzhang + ',' 
         + shenpanyuan + ',' 
         + time + ',' 
-        + year)
+        + year + ',' 
+        + content)
 
 } else {
     alert("请先点击选择一个文书！")
