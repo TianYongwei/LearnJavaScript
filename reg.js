@@ -213,10 +213,16 @@ if(document.querySelector('.modal-dialog')) {
         province = dialog.match(/.*法院/)[0].match(/.*省/)[0]
      }
 
-     // 判决款项开户信息
-     if(dialog.match(/开户行.*/)) {
+    // 判决款项开户信息
+    if(dialog.match(/开户行.*/)) {
          bank = dialog.match(/开户行.*/)[0]
-     }
+    } else if(dialog.match(/冻结或扣划/)) {
+         bank = '冻结或扣划'
+    } else if(dialog.match(/冻结/)) {
+        bank = '冻结'
+    } else if(dialog.match(/扣划/)) {
+        bank = '扣划'
+    }
 
      // 赔偿金额
      if(dialog.match(/共计\d*元/)) {
@@ -255,7 +261,7 @@ if(document.querySelector('.modal-dialog')) {
          var names = dialog_body.match(/审.*?判.*?员.*/g);
          var multiName = ''
          names.forEach(name => {
-             name = name.replace('审.*?判.*?员', '');
+             name = name.replace(/审.*?判.*?员/, '');
             //  name = name.replace('　　','')
              if(name.match(/代理/)) {
                  name = name.replace('代理','')
